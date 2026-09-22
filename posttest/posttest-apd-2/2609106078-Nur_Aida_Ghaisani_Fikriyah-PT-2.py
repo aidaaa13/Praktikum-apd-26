@@ -11,7 +11,7 @@ total_biaya = komponen[0] + komponen[1] + komponen[2] + komponen[3] + komponen[4
 rata_rata = total_biaya / len(komponen)
 nim = 78
 bolean = nim != rata_rata
-
+    
 poundsterling = total_biaya / 23.788
 barang_1_sampai_4 = komponen[-6:-2]
 
