@@ -1,0 +1,286 @@
+import os
+
+data_akun = {
+    "admin": {"password": "admin123", "peran": "admin"},
+    "pembeli": {"password": "123", "peran": "user"}
+}
+
+data_booking = {
+    1: {"pemesan": "Budi", "lapangan": "Lapangan A (Sintetis)", "durasi": 2, "harga": 200000},
+    2: {"pemesan": "Andi", "lapangan": "Lapangan B (Vinyil)", "durasi": 1, "harga": 120000}
+}
+
+data_lapangan = {
+    "1": {"nama": "Lapangan A (Sintetis)", "harga": 100000},
+    "2": {"nama": "Lapangan B (Vinyil)", "harga": 120000}
+}
+
+peran_login = ""
+pengguna_aktif = ""
+
+while True:
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("=" * 45)
+    print("    SISTEM BOOKING LAPANGAN FUTSAL    ")
+    print("=" * 45)
+    print("1. Login")
+    print("2. Register (Buat Akun Untuk User)")
+    print("3. Keluar Program")
+    print("=" * 45)
+    
+    pilihan_awal = input("Pilih menu (1-3): ")
+
+    if pilihan_awal == "1":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("=" * 45)
+        print("              MENU LOGIN              ")
+        print("=" * 45)
+        username_input = input("Masukkan Username : ")
+        password_input = input("Masukkan Password : ")
+
+        if username_input in data_akun[username_input]["password"] == password_input:
+                pengguna_aktif = username_input
+                peran_login = data_akun[username_input]["peran"]
+        
+                print(f"\nLogin Berhasil! Selamat datang, {pengguna_aktif}.")
+                input("Tekan Enter untuk melanjutkan")
+
+        if peran_login == "admin":
+                while True:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    print("=" * 45)
+                    print("      MENU ADMIN      ")
+                    print("=" * 45)
+                    print("1. Lihat Semua Data Booking (Read)")
+                    print("2. Tambah Data Booking (Create)")
+                    print("3. Ubah Data Booking (Update)")
+                    print("4. Hapus Data Booking (Delete)")
+                    print("5. Logout")
+                    print("=" * 45)
+                    pilihan_admin = input("Pilih menu (1-5): ")
+
+                    if pilihan_admin == "1":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("=" * 60)
+                        print("               DAFTAR BOOKING FUTSAL                ")
+                        print("=" * 60)
+                        if len(data_booking) == 0:
+                            print("Belum ada data booking lapangan.")
+                        else:
+                            for id_b in range(len(data_booking)):
+                                print(f"{id_b + 1}. Pemesan : {data_booking[id_b + 1][0]}")
+                                print(f"   Lapangan: {data_booking[id][1]}")
+                                print(f"   Durasi  : {data_booking[id][2]}")
+                                print(f"   Harga   : {data_booking[id][3]}")
+                                print("-" * 60)
+                        input("\nTekan Enter untuk kembali")
+
+                    elif pilihan_admin == "2":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("=" * 45)
+                        print("         TAMBAH DATA BOOKING BARU          ")
+                        print("=" * 45)
+                        nama_pemesan = input("Masukkan Nama Pemesan : ")
+                        
+                        print("\nPilih Lapangan:")
+                        print("1. Lapangan A (Sintetis) - Rp 100.000/jam")
+                        print("2. Lapangan B (Vinyil)   - Rp 120.000/jam")
+                        pilih_lap = input("Pilih (1/2): ")
+                        
+                        lapangan = ""
+                        harga_per_jam = 0
+                        if "pilih_lapangan":
+                            jam_input = input("Masukkan Durasi Main(Jam, angka saja): ")
+                        if jam_input.isdigit() and int(jam_input) > 0:
+                                    durasi = int(jam_input)
+                                    total_harga = durasi [pilih_lap]["harga"]
+                                    data_booking[id_berikutnya] = {
+                                        "pemesan": nama_pemesan,
+                                        "lapangan": [pilih_lap]["nama"],
+                                        "durasi": durasi,
+                                        "harga": total_harga
+                                    }
+                                    id_berikutnya += 1
+                                    print("\nData Booking Berhasil Ditambahkan!")
+                        else:
+                            print("Pilihan lapangan tidak valid!")
+                            input("Tekan Enter untuk kembali")
+                            continue
+
+                        jam_input = input("Masukkan Durasi Main (Jam, angka saja): ")
+                        if int(jam_input) > 0:
+                            durasi = int(jam_input)
+                            total_harga = durasi * harga_per_jam
+                            
+                            data_booking.append([nama_pemesan, lapangan, f"{durasi} Jam", f"Rp {total_harga:}"])
+                            print("\nData Booking Berhasil Ditambahkan!")
+                        else:
+                            print("\nInput durasi jam harus berupa angka!")
+                        input("Tekan Enter untuk kembali")
+
+                    elif pilihan_admin == "3":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("=" * 45)
+                        print("            UBAH DATA BOOKING              ")
+                        print("=" * 45)
+                        if len(data_booking) == 0:
+                            print("Tidak ada data untuk diubah.")
+                        else:
+                            for id_b in data_booking.items():
+                                print (f"{id_b}. {detail['pemesan']} - {detail['lapangan']} - ({detail['durasi']} Jam)")
+                            
+                            pilih_id = input("\nMasukkan ID data yang ini diubah: ")
+
+                            if pilih_id == "":  
+                                print("\nInput tidak boleh kosong")
+                            elif not pilih_id.isdigit():
+                                print("\nMasukkan ID berupa angka!") 
+                            elif int(pilih_id) not in data_booking:
+                                print("\nID data tidak ditemukan")
+                            else:
+                                kunci = int(pilih_id)
+                                print(f"\nMengubah Data Milik: {data_booking[kunci]['pemesan']}")
+                                nama_baru = input("Nama Pemesan Baru: ")
+                            if nama_baru.strip() == "":
+                                    print("\nNama pemesan tidak boleh kosong!")
+                            else:        
+                                print("\nPilih Lapangan Baru:")
+                                print("1. Lapangan A (Sintetis) - Rp 100.000/jam")
+                                print("2. Lapangan B (Vinyil)   - Rp 120.000/jam")
+                                pilih_lapangan = input("Pilih (1/2): ")
+                                    
+                                if pilih_lap == "1":
+                                    jam_baru = input("Durasi Baru (Jam, angka saja): ")
+                                    if jam_baru.idsigit() and int (jam_baru) > 0:
+                                        durasi = int(jam_baru)
+                                        data_booking[kunci]["pemesanan"]
+                                        data_booking[kunci]["lapangan"][pilih_lap]["nama"]
+                                        data_booking[kunci]["durasi"] = durasi
+                                        data_booking[kunci]["harga"] = durasi [pilih_lap]["harga"]
+                                        print("\nData berhasil diperbarui!")
+                                    else:
+                                        print("\nDurasi harus berupa angka lebih dari 0!")
+                                else:
+                                    print("\nPilihan Lapangan tidak valid!")
+                        input("Tekan Enter untuk kembali")
+
+                    elif pilihan_admin == "4":
+                        os.system ('cls' if os.name == 'nt' else 'clear')
+                        print("=" * 45)
+                        print("            HAPUS DATA BOOKING             ")
+                        print("=" * 45)
+                        if len(data_booking) == 0:
+                            print("Tidak ada data untuk dihapus.")
+                        else:
+                            for id_b in range(len(data_booking)):
+                                print(f"{id_b}. {"detail"['pemesan']} - {"detail"['lapangan']} - ({"detail"['durasi']} Jam)")
+                            
+                            pilih_id = input("\nMasukkan ID data yang ingin dihapus: ")
+                            if pilih_id == "":  
+                                print("\nInput tidak boleh kosong")
+                            elif not pilih_id.isdigit():
+                                print("\nMasukkan ID berupa angka!")
+                            elif int(pilih_id) not in data_booking:
+                                print("\nID data tidak ditemukan!")
+                            else:
+                                data_dihapus = data_booking.pop(int(pilih_id))
+                                print(f"\nData booking atas nama '{data_dihapus['pemesan']}' berhasil dihapus!")
+                                input("Tekan Enter untuk kembali")
+                            
+                    elif pilihan_admin == "5":
+                        break
+                    else:
+                        print("Pilihan tidak valid!")
+                        input("Tekan Enter")
+
+        elif peran_login == "user":
+                while True:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    print("=" * 45)
+                    print("       MENU USER        ")
+                    print("=" * 45)
+                    print("1. Lihat Jadwal Booking Futsal (Read)")
+                    print("2. Lakukan Booking Lapangan (Create)")
+                    print("3. Logout")
+                    print("=" * 45)
+                    pilihan_user = input("Pilih menu (1-3): ")
+
+                    if pilihan_user == "1":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("=" * 60)
+                        print("               DAFTAR BOOKING FUTSAL                ")
+                        print("=" * 60)
+                        if len(data_booking) == 0:
+                            print("Belum ada data booking lapangan.")
+                        else:
+                            for id_b, detail in data_booking.items():
+                                print(f"{id_b}. Pemesan : {detail['pemesan']}")
+                                print(f"   Lapangan: {detail['lapangan']}")
+                                print(f"   Durasi  : {detail['durasi']} Jam")
+                                print(f"   Harga   : Rp {detail["harga"]:,}".replace(",", "."))
+                                print("-" * 60)
+                        input("\nTekan Enter untuk kembali")
+
+                    elif pilihan_user == "2":
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("=" * 45)
+                        print("            FORM BOOKING LAPANGAN          ")
+                        print("=" * 45)
+                        print(f"Nama Pemesan: {pengguna_aktif}")
+                        
+                        print("\nPilih Lapangan:")
+                        print("1. Lapangan A (Sintetis) - Rp 100.000/jam")
+                        print("2. Lapangan B (Vinyil)   - Rp 120.000/jam")
+                        pilih_lap = input("Pilih (1/2): ")
+                        
+                        if pilih_lap in "data_lapangan":
+                            jam_input = input("Masukkan Durasi Main (Jam, angka saja): ")
+                            if jam_input.isdigit() and int(jam_input) > 0:
+                                durasi = int(jam_input)
+                                total_harga = durasi * "data_lapangan"[pilih_lap]["harga"]
+                                data_booking[id_berikutnya] = {
+                                    "pemesan": pengguna_aktif,
+                                    "lapangan": "data_lapangan"[pilih_lap]["nama"],
+                                    "durasi": durasi,
+                                    "harga": total_harga
+                                }
+                                id_berikutnya += 1
+                                print("\nBooking Berhasil Dibuat!")
+                        else:
+                            print("Pilihan lapangan tidak valid!")
+                            input("Tekan Enter untuk kembali")
+                            
+                    elif pilihan_user == "3":
+                        break
+                    else:
+                        print("Pilihan tidak valid!")
+                        input("Tekan Enter")
+
+        else:
+            print("\nUsername atau Password salah!")
+            input("Tekan Enter untuk mencoba lagi")
+
+    elif pilihan_awal == "2":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("=" * 45)
+        print("              REGISTER USER              ")
+        print("=" * 45)
+        reg_user = input("Masukkan Username Baru : ")
+        reg_pass = input("Masukkan Password Baru : ")
+
+        if reg_user.strip() == "" or reg_pass.strip() == "":
+            print("\nUsername dan Password tidak boleh kosong!")
+        elif reg_user in data_akun:
+            print("\nUsername sudah digunakan! Silakan gunakan username lain.")
+
+        else:
+            data_akun[reg_user] = {"password": reg_pass, "peran": "user"}
+            print("\nRegistrasi berhasil! Silakan login.")
+        input("Tekan Enter untuk kembali")
+
+    elif pilihan_awal == "3":
+        print("\nTerima kasih telah menggunakan sistem ini!")
+        break
+    else:
+        print("Pilihan tidak valid!")
+        input("Tekan Enter untuk mencoba lagi")
