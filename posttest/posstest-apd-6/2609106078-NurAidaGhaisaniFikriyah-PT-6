@@ -68,7 +68,7 @@ while True:
                             print("Belum ada data booking lapangan.")
                         else:
                             for id_b in range(len(data_booking)):
-                                print(f"{id_b + 1}. Pemesan : {data_booking[id_b + 1][0]}")
+                                print(f"{id_b + 1}. Pemesan : {data_booking[id][0]}")
                                 print(f"   Lapangan: {data_booking[id][1]}")
                                 print(f"   Durasi  : {data_booking[id][2]}")
                                 print(f"   Harga   : {data_booking[id][3]}")
